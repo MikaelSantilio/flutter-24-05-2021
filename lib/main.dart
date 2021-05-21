@@ -32,11 +32,17 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = [];
 
-  void checkAnswer(bool userPickedAnswer) {
-    bool correctAnswer = quizBrain.getCorrectAnswer();
+  void checkAnswer(int userPickedAnswer) {
+    int correctAnswer = quizBrain.getCorrectAnswer();
 
     setState(() {
-      if (userPickedAnswer == correctAnswer) {
+      if (userPickedAnswer == 2) {
+        scoreKeeper.add(Icon(
+          Icons.warning,
+          color: Colors.yellow,
+        ));
+      }
+      else if (userPickedAnswer == correctAnswer) {
         quizBrain.setCorrectAnswer();
         scoreKeeper.add(Icon(
           Icons.check,
@@ -115,32 +121,29 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                //The user picked true.
-                checkAnswer(true);
+                checkAnswer(1);
               },
             ),
           ),
         ),
-        // Expanded(
-        //   child: Padding(
-        //     padding: EdgeInsets.all(15.0),
-        //     child: FlatButton(
-        //       color: Colors.yellow,
-        //       child: Text(
-        //         'Maybe',
-        //         style: TextStyle(
-        //           fontSize: 20.0,
-        //           color: Colors.white,
-        //         ),
-        //       ),
-        //       onPressed: () {
-        //         //The user picked false.
-        //         // checkAnswer(false);
-        //         print("maybe");
-        //       },
-        //     ),
-        //   ),
-        // ),
+        Expanded(
+          child: Padding(
+            padding: EdgeInsets.all(15.0),
+            child: FlatButton(
+              color: Colors.yellow,
+              child: Text(
+                'Maybe',
+                style: TextStyle(
+                  fontSize: 20.0,
+                  color: Colors.white,
+                ),
+              ),
+              onPressed: () {
+               checkAnswer(2);
+              },
+            ),
+          ),
+        ),
         Expanded(
           child: Padding(
             padding: EdgeInsets.all(15.0),
@@ -154,8 +157,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                //The user picked false.
-                checkAnswer(false);
+                checkAnswer(3);
               },
             ),
           ),
